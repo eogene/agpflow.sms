@@ -1,0 +1,41 @@
+server:
+    port: 8099
+    compression:
+        min-response-size: 512
+        enabled: true
+        mime-types: text/html,text/css,text/javascript,application/javascript,image/gif,image/png,image/jpg,application/javascript
+    undertow:
+        io-threads: 4
+        worker-threads: 10
+        buffer-size: 16384
+        accesslog:
+            enabled: true
+            dir: /home/agp/log/server_log
+            pattern: combined
+logging:
+    config: config/logback-spring.xml
+    path: /home/agp/log/spring
+    level.root: info
+spring:
+    http:
+        encoding.charset: UTF-8
+        encoding.force: false
+        multipart:
+          max-file-size: 3MB
+          max-request-size: 25MB
+    mvc:
+       static-path-pattern=classpath:/static/**
+       
+SystemAppId: flowtest2018
+jdbc:
+    driver: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.1.142:1521:orcl01
+    username: pzagp2
+    password: pzagp2
+smsjob:
+    time: "0 0/1 * * * ?"
+smsservice:
+    endpoint: http://10.201.37.41:7601/adapter/services/InnerAdapter
+    system: flowtest2018
+    
+

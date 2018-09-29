@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <property name="logdir" value="logs"/>
+    <property name="ROOT_LEVEL" value="INFO"/>
+    <timestamp key="byDate" datePattern="yyyy-MM-dd"/>
+    <property name="MESSAGE_FILE_PATTERN" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level %marker %thread %logger %msg%n"/>
+    <property name="maxhistory" value="10"/>
+    <appender name="spring" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        </filter>
+        <File>${logdir}/spring/spring.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logdir}/spring/spring-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>${maxhistory}</maxHistory>
+            <maxFileSize>300MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MESSAGE_FILE_PATTERN}
+            </pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="spring"/>
+    </root>
+
+  
+</configuration>
